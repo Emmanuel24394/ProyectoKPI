@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<?php include "include/scripts.php"	 ?>
+	
 	<title>Registro De Usuario</title>
 </head>
 <body>
-     <?php include "include/header.php" ?>
+     
 
 	<section id="container">
          <div class="form_register">
@@ -38,6 +38,6 @@
 		</div>
 
 	</section>
-	<?php include "include/footer.php" ?>
+	
 </body>
 </html>
