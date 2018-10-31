@@ -6,11 +6,15 @@ require_once"conexion.php";
         $result = mysqli_query($conection,$sql);
         while ($registro = mysqli_fetch_array($result)) {
         ?>
+    
+         
+        <?php  echo $registro ["datos"] 
         
-        <?php  echo $registro ["datos"] ?>,
+        ?>,
         
         <?php
         }
 
           ?>
         <?php include "max.php" ?>
+

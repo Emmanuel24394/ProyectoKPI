@@ -8,14 +8,16 @@
 
 		<style type="text/css">
         *{
-    
+     
+     background-image: url("img/fondo.jpg");
 } 
 
 #container {
   max-width: 800px;
   height: 400px;
   margin: 1em auto;
-   
+    
+    
    
 } 
 
@@ -69,6 +71,7 @@ Highcharts.chart('container', {
         zIndex: -1
     }, {
         name: 'Datos',
+        type: 'bellcurve',
         type: 'scatter',
         data: data,
         marker: {

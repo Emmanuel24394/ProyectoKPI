@@ -1,45 +1,60 @@
-
 <?php 
-$alert = '';
+   $alert = '';
+   /*session_start();*/
+   if(!empty($_SESSION['active']))
+   {
+   	header('location: admin.php');
+   }else{
    if (!empty($_POST)){
-      if (empty($_POST['nombre']) || empty($_POST['min']) || empty($_POST['max']))
-      {
-         $alert = 'Los Datos Son Obligatorios';
-      }else{
-         require_once"conexion.php";
-         $nombre = $_POST['nombre'];
-         $min = $_POST['min'];
-         $max = $_POST['max'];
+   	if (empty($_POST['usuario']) || empty($_POST['clave']))
+   	{
+   		$alert = 'Ingrese Su Clave y Usuario';
+   	}else{
+   		require_once"com/conexion.php";
 
-         $query = mysqli_query($conection,"SELECT * FROM conkpi WHERE nombre='$nombre' OR min='$min' OR max='$max'");
-         $result = mysqli_num_rows($query);
-         $query_insert = mysqli_query($conection, "INSERT INTO conkpi(nombre,min,max) VALUES ('$nombre','$min','$max')");
+   		$user = $_POST['usuario'];
+   		$pass = $_POST['clave'];
 
-           
-         
-      }
+   		$query = mysqli_query($conection,"SELECT * FROM usuario WHERE usuario= '$user' AND clave ='$pass'");
+   		$result = mysqli_num_rows($query);
 
+   		if($result > 0)
+   		{
+   			$data = mysqli_fetch_array($query);   			
+   			$_SESSION['active'] = true;
+   			$_SESSION['idUser'] = $data['idusuario'];
+   			$_SESSION['nombre'] = $data['nombre'];
+   			$_SESSION['email'] = $data['email'];
+   			$_SESSION['user'] = $data['usuario'];
+   			$_SESSION['rol'] = $data['rol'];
+
+   			header('location: admin.php');
+   		}else{$alert = 'La Clave O Usuario Son Incorrectos';
+            session_destroy();
+
+      	}
+   	}
    }
+}   
  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Sistema de medición de KPI</title>
-		
+	<link rel="stylesheet" type="text/css" href="css1/stylekpi.css">	
 </head>
 <body>
 	<section id="container">
 
 		<form action="" method="post">
 
-			<h3>Crear KPI</h3>
-			
+			<h3>Iniciar Sesión</h3>
+			<img src="img/login.png" width="120" height="125" alt="Login">
 
-         <input type="text" name="nombre" placeholder="Ingresar Nombre de KPI">
-			<input type="text" name="min" placeholder="Ingresar Dato Minimo">
-			<input type="text" name="max" placeholder="Ingresar Dato Maximo">
-         <div class="alert"><?php echo isset($alert) ? $alert : '';  ?></div>
+			<input type="text" name="usuario" placeholder="Usuario">
+			<input type="password" name="clave" placeholder="Contraseña">
+			<div class="alert"><?php echo isset($alert) ? $alert : '';  ?></div>
 			<input type="submit" value="INGRESAR">
 
 		</form>
