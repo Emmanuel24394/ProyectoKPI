@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+	<testsuite>
+	   <testsuite name="Suite de pruebas unitarias">
+		   <directory>./ProyectoKPI/</directory>
+	   </testsuite>
+	</testsuite>
+</phpunit>	
